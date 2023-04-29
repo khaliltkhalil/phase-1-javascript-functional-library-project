@@ -108,3 +108,30 @@ function myValues(object) {
   }
   return arr;
 }
+
+function mySortBy(array, callback) {
+  const newArray = [...array];
+  newArray.sort((a, b) => {
+    if (callback(a) < callback(b)) {
+      return -1;
+    }
+    if (callback(a) > callback(b)) {
+      return 1;
+    }
+    return 0;
+  });
+  return newArray;
+}
+
+function myFlatten(array, shallow = false, newArr = []) {
+  for (let i = 0; i < array.length; i++) {
+    if (Array.isArray(array[i]) && !shallow) {
+      myFlatten(array[i], shallow, newArr);
+    } else if (Array.isArray(array[i])) {
+      newArr.push(...array[i]);
+    } else {
+      newArr.push(array[i]);
+    }
+  }
+  return newArr;
+}
